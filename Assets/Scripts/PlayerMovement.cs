@@ -6,9 +6,8 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 70;
-    
     public float maxSpeed = 80;
-    public float jumpForce = 30f;
+    public float jumpForce = 50f;
     public float holdForce = 10f;
     public float maxJumpVelocity = 20f;
     private bool isJumping = false;
@@ -19,17 +18,21 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public GameObject enemies;
     public JumpOverGoomba jumpOverGoomba;
-
     public GameManagerScript gameManager;
     public Animator marioAnimator;
-
     private bool isDead;
     public AudioSource marioAudio;
+    public AudioClip marioDeath;
+    public float deathImpulse = 15;
+    private int collisionLayerMask = (1 << 3) | (1 << 6) | (1 << 7);
+
+    // state
+    [System.NonSerialized]
+    public bool alive = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Set to be 30 FPS
         Application.targetFrameRate = 30;
         marioBody = GetComponent<Rigidbody2D>();
         marioSprite = GetComponent<SpriteRenderer>();
@@ -39,20 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float moveHorizontal = Input.GetAxisRaw("Horizontal");
-        if (moveHorizontal < 0 && faceRightState)
-        {
-            faceRightState = false;
-            marioSprite.flipX = true;
-        }
 
-        if (moveHorizontal > 0 && !faceRightState)
-        {
-            faceRightState = true;
-            marioSprite.flipX = false;
-        }
-
-        if (Input.GetKeyDown("a") && faceRightState)
+        if ((Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow)) && faceRightState)
         {
             faceRightState = false;
             marioSprite.flipX = true;
@@ -60,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
                 marioAnimator.SetTrigger("onSkid");
         }
 
-        if (Input.GetKeyDown("d") && !faceRightState)
+        if ((Input.GetKeyDown("d") || Input.GetKeyDown(KeyCode.RightArrow)) && !faceRightState)
         {
             faceRightState = true;
             marioSprite.flipX = false;
@@ -79,17 +70,44 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && alive)
         {
             Debug.Log("Collided with goomba!");
-            Time.timeScale = 0.0f;
-            gameManager.gameOver();
+
+            // play death animation
+            marioAnimator.Play("mario-die");
+            marioAudio.PlayOneShot(marioDeath);
+            alive = false;
+
+            // Apply death impulse and trigger game over after a delay
+            PlayDeathImpulse();
+            StartCoroutine(DelayedGameOver());
         }
+    }
+
+    IEnumerator DelayedGameOver()
+    {
+        // Wait for death animation/sound to play
+        yield return new WaitForSeconds(2.0f);
+        GameOverScene();
+    }
+
+    void PlayDeathImpulse()
+    {
+        marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
+    }
+
+    void GameOverScene()
+    {
+        // stop time
+        Time.timeScale = 0.0f;
+        // set gameover scene
+        gameManager.gameOver(); // replace this with whichever way you triggered the game over screen for Checkoff 1
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Ground") && !onGroundState)
+        if (((collisionLayerMask & (1 << col.transform.gameObject.layer)) > 0) && !onGroundState)
         {
             onGroundState = true;
             // update animator state
@@ -100,54 +118,54 @@ public class PlayerMovement : MonoBehaviour
     // FixedUpdate may be called once per frame. See documentation for details.
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxisRaw("Horizontal");
-
-        if (Mathf.Abs(moveHorizontal) > 0)
+        if (alive)
         {
-            Vector2 movement = new Vector2(moveHorizontal, 0);
-            // check if it doesn't go beyond maxSpeed
-            if (marioBody.linearVelocity.magnitude < maxSpeed)
-                marioBody.AddForce(movement * speed);
-        }
+            float moveHorizontal = Input.GetAxisRaw("Horizontal");
 
-        // stop
-        if (Input.GetKeyUp("a") || Input.GetKeyUp("d"))
-        {
-            // stop
-            marioBody.linearVelocity = Vector2.zero;
-        }
-
-
-        // Making the jump more like the actual mario game
-        // Start jump
-        if (Input.GetKeyDown("space") && onGroundState)
-        {
-            marioBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            onGroundState = false;
-            isJumping = true;
-            marioAnimator.SetBool("onGround", onGroundState);
-        }
-
-        // Hold jump: apply smaller force while rising
-        if (Input.GetKey("space") && isJumping)
-        {
-            if (marioBody.linearVelocity.y > 0 && marioBody.linearVelocity.y < maxJumpVelocity)
+            if (Mathf.Abs(moveHorizontal) > 0)
             {
-                marioBody.AddForce(Vector2.up * holdForce, ForceMode2D.Force);
+                Vector2 movement = new Vector2(moveHorizontal, 0);
+                // check if it doesn't go beyond maxSpeed
+                if (marioBody.linearVelocity.magnitude < maxSpeed)
+                    marioBody.AddForce(movement * speed);
             }
-        }
-
-        // Short hop: if released early, cut upward velocity
-        if (Input.GetKeyUp("space"))
-        {
-            if (marioBody.linearVelocity.y > 0)
+            if (Input.GetKeyUp("a") || Input.GetKeyUp("d") || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
             {
-                marioBody.linearVelocity = new Vector2(marioBody.linearVelocity.x, marioBody.linearVelocity.y * 0.25f);
+                // stop
+                marioBody.linearVelocity = Vector2.zero;
             }
-            isJumping = false;
+
+
+            // Making the jump more like the actual mario game
+            // Start jump
+            if ((Input.GetKeyDown("space") || Input.GetKeyDown(KeyCode.UpArrow)) && onGroundState)
+            {
+                marioBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                onGroundState = false;
+                isJumping = true;
+                marioAnimator.SetBool("onGround", onGroundState);
+            }
+
+            // Hold jump: apply smaller force while rising
+            if ((Input.GetKey("space") || Input.GetKey(KeyCode.UpArrow)) && isJumping)
+            {
+                if (marioBody.linearVelocity.y > 0 && marioBody.linearVelocity.y < maxJumpVelocity)
+                {
+                    marioBody.AddForce(Vector2.up * holdForce, ForceMode2D.Force);
+                }
+            }
+
+            // Short hop: if released early, cut upward velocity
+            if (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                if (marioBody.linearVelocity.y > 0)
+                {
+                    marioBody.linearVelocity = new Vector2(marioBody.linearVelocity.x, marioBody.linearVelocity.y * 0.25f);
+                }
+                isJumping = false;
+            }
         }
     }
-
 
     public void RestartButtonCallback(int input)
     {
@@ -177,6 +195,10 @@ public class PlayerMovement : MonoBehaviour
         gameManager.gameOverUI.SetActive(false);
         gameManager.gameStartResetButton.SetActive(true);
         gameManager.gameStartScore.SetActive(true);
+
+        // reset animation
+        marioAnimator.SetTrigger("gameRestart");
+        alive = true;
     }
 
 

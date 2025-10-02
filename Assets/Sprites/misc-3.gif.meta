@@ -417,7 +417,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -439,7 +439,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -448,6 +448,50 @@ TextureImporter:
       bones: []
       spriteID: cc3e72804108344298ed60f23e51c9b5
       internalID: -1204056370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Goomba_flat
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 343
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f1c31063872941ef9d2d842f07ff28b
+      internalID: -436107376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: moving_platform_6
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 1201
+        width: 48
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56a681518d671440a8075436d86a67da
+      internalID: 625662318
       vertices: []
       indices: 
       edges: []
@@ -473,6 +517,7 @@ TextureImporter:
       Cloud_1: 539693362
       Cloud_2: 1709897791
       Cloud_3: 1075318036
+      Goomba_flat: -436107376
       Goomba_left: -480114516
       Goomba_right: -1204056370
       Ground: -462428925
@@ -481,6 +526,7 @@ TextureImporter:
       Pipe_1: 1758714480
       Pipe_extend: 1763963889
       Question_box: -1225447665
+      moving_platform_6: 625662318
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
