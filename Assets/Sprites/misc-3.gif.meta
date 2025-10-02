@@ -461,7 +461,7 @@ TextureImporter:
         width: 48
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -470,6 +470,94 @@ TextureImporter:
       bones: []
       spriteID: 1a72836d2ac49dc478aef803baeb0db1
       internalID: 1618038367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coin_1
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 1093
+        width: 4
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5810f346e90e14247bef852804631b83
+      internalID: -161202348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coin_2
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1093
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3e08a354e9464abaa1b0addb6d1269f
+      internalID: 919117990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coin_3
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 1093
+        width: 4
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6578de2ef861b455092163d4bb72a421
+      internalID: 92687634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coin_4
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 1093
+        width: 1
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8caf0546f3a2749c2b9f380492adce12
+      internalID: -91586324
       vertices: []
       indices: 
       edges: []
@@ -504,6 +592,10 @@ TextureImporter:
       Pipe_1: 1758714480
       Pipe_extend: 1763963889
       Question_box: -1225447665
+      coin_1: -161202348
+      coin_2: 919117990
+      coin_3: 92687634
+      coin_4: -91586324
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

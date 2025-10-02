@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4736541724895563666}
   - component: {fileID: 3457673318092152811}
   m_Layer: 0
-  m_Name: SpringQuestionBox
+  m_Name: SpringBrickBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,9 +72,9 @@ GameObject:
   - component: {fileID: 1467841089029793998}
   - component: {fileID: 2832752914752193751}
   - component: {fileID: 1652892218569313087}
-  - component: {fileID: 8930069976521441154}
+  - component: {fileID: 3984252379301057339}
   m_Layer: 6
-  m_Name: Question (4)
+  m_Name: Brick
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1225447665, guid: 82bc45c4496284f4c823d1b837f65ec4, type: 3}
+  m_Sprite: {fileID: 1135496316, guid: 82bc45c4496284f4c823d1b837f65ec4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -226,7 +226,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
---- !u!231 &8930069976521441154
+--- !u!231 &3984252379301057339
 SpringJoint2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,7 +235,7 @@ SpringJoint2D:
   m_GameObject: {fileID: 3423014398270209224}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 3457673318092152811}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -243,7 +243,7 @@ SpringJoint2D:
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 1}
-  m_AutoConfigureDistance: 1
+  m_AutoConfigureDistance: 0
   m_Distance: 1
   m_DampingRatio: 1
-  m_Frequency: 5
+  m_Frequency: 3
