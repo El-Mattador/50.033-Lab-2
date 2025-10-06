@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3457673318092152811}
   - component: {fileID: 8159310048547095328}
   m_Layer: 0
-  m_Name: SpringQuestionBox
+  m_Name: SpringBrickBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,11 +118,11 @@ GameObject:
   - component: {fileID: 2832752914752193751}
   - component: {fileID: 1652892218569313087}
   - component: {fileID: 8930069976521441154}
-  - component: {fileID: 7935546573125552619}
   - component: {fileID: 8190520220430285416}
   - component: {fileID: 2585478285051317131}
+  - component: {fileID: 5459618628267970898}
   m_Layer: 6
-  m_Name: Question (4)
+  m_Name: Brick
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +190,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1225447665, guid: 82bc45c4496284f4c823d1b837f65ec4, type: 3}
+  m_Sprite: {fileID: 1135496316, guid: 82bc45c4496284f4c823d1b837f65ec4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -295,25 +295,6 @@ SpringJoint2D:
   m_Distance: 1
   m_DampingRatio: 1
   m_Frequency: 5
---- !u!114 &7935546573125552619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3423014398270209224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f330d131a648604dba7c6970b3a764a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::QuestionBox
-  sfx: {fileID: 0}
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  usedSprite: {fileID: 1067149781, guid: 82bc45c4496284f4c823d1b837f65ec4, type: 3}
-  coinPrefab: {fileID: 304591457102119867, guid: e683d31987aa1b04988d29c3ec0e0b60, type: 3}
-  coinSpawn: {fileID: 3662842531444532770}
 --- !u!68 &8190520220430285416
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -454,6 +435,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5459618628267970898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3423014398270209224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0247b1b9bda64892895b6cf9820a5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrickBox
+  sfx: {fileID: 0}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  coinPrefab: {fileID: 304591457102119867, guid: e683d31987aa1b04988d29c3ec0e0b60, type: 3}
+  coinSpawn: {fileID: 3662842531444532770}
 --- !u!1 &7449549753771773302
 GameObject:
   m_ObjectHideFlags: 0
